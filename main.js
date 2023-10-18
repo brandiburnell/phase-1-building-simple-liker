@@ -4,6 +4,38 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+// Hide modal initially
+let errorElement = document.querySelector("#modal");
+// console.log(errorElement);
+errorElement.className = "hidden";
+
+let hearts = document.querySelectorAll(".like-glyph");
+
+// When user clicks on empty heart
+mimicServerCall()
+.then(() => {
+  console.log("success");
+  console.log(hearts);
+  hearts.forEach(heart => {
+    heart.addEventListener("click", () => {
+      console.log("pressed");
+      if (heart.className === "activated-heart") {
+        heart.className = "";
+      }
+      else {
+        heart.className = "activated-heart";
+      }
+    });
+  });
+})
+.catch(() => {
+  errorElement.className = "";
+  errorElement.textContent = "Pretend remote server notified of action!";
+  setTimeout(() => {
+    errorElement.className = "hidden";
+  }, "3000");
+});
+
 
 
 
